@@ -1,0 +1,68 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(content="width=device-width, initial-scale=1.0", name="viewport")
+
+    // Favicons icons
+    link(href="/assets/img/favi-con.png", rel="icon")
+
+    // Google Fonts
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i", rel="stylesheet")
+   
+    // CSS Files
+    link(rel="stylesheet", href="/assets/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/assets/css/bootstrap-icons.css")
+    link(rel="stylesheet", href="/assets/css/bootstrap-notify.css")
+
+
+    // Template Main CSS File
+    link(rel="stylesheet", href="/assets/css/style.css")
+    script.
+      let ajax_url = `!{process.env.APP_URL}`;
+      
+      let store_url = `!{user_id}`;
+
+    body
+
+      if( auth_user)
+        header#header.header.fixed-top.d-flex.align-items-center
+
+          div.d-flex.align-items-center.justify-content-between
+            a.logo.d-flex.align-items-center(
+              href=(user_id?`/${user_id}/dashboard`:'#')
+            )
+              img(src='/assets/img/favi-con.png', alt='logo')
+
+          nav.header-nav.ms-auto
+            ul.d-flex.align-items-center           
+              li.nav-item.dropdown.pe-3
+                a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href='#', data-bs-toggle='dropdown')
+                  img.rounded-circle(
+                    src=`${"/assets/img/profile-img.jpg"}`,
+                  
+                  )
+                  span.d-none.d-md-block.dropdown-toggle.ps-2
+                    | #{ auth_user && auth_user.first_name} #{auth_user && auth_user.last_name}
+                ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile
+                  li.dropdown-header
+                    h6
+                      | #{auth_user && auth_user.first_name} #{auth_user && auth_user.last_name}
+                  li
+                    hr.dropdown-divider
+                
+                  li
+                    a.dropdown-item.d-flex.align-items-center(href='/logout')
+                      i.bi.bi-box-arrow-right
+                      span Log Out
+
+      block content
+
+    script(type='text/javascript', src='/assets/js/jquery.js')
+    script(type='text/javascript', src='/assets/js/bootstrap.min.js')
+    script(type='text/javascript', src='/assets/js/jquery.validate.min.js')
+    script(type='text/javascript', src='/assets/js/bootstrap.bundle.js')
+    script(type='text/javascript', src='/assets/js/bootstrap-notify.min.js')
+    script(type='text/javascript', src='/assets/js/sweetalert.min.js')
+
+    block scripts
